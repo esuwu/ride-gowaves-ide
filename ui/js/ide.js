@@ -19,8 +19,8 @@ function changeCompiler() {
 
 }
 
-function executeCode() {
-    $.sjax({
-        url: "/execute",
-    })
-}
+// function executeCode() {
+//     $.sjax({
+//         url: "/execute",
+//     })
+// }
