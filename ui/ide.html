@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ride Gowaves IDE</title>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+    <div class="header"> Ride Gowaves IDE </div>
+    <div class="control-panel"></div>
+        Select Compiler:
+        &nbsp;&nbsp;&nbsp;
+        <select id="compilers" class="compilers" onchange="changeCompiler()">
+            <option value="GowavesCompiler"> Gowaves Ride Compiler </option>
+            <option value="WavesCompiler"> Waves Ride Compiler </option>
+        </select>
+    <div class="editor" id="editor"></div>
+
+    <div class="button-container">
+        <button class="btn" onclick="executeCode()">Run</button>
+    </div>
+
+    <div class="output"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/aceLib/ace.js"></script>
+    <script src="js/aceLib/theme-monokai.js"></script>
+    <script src="js/ide.js"></script>
+</body>
+</html>
