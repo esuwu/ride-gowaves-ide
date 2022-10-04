@@ -7,20 +7,24 @@ window.onload = function() {
 }
 
 function changeCompiler() {
-    let compiler = $("#compiler").val();
-
-    if (compiler == "GowavesCompiler") {
-       // send request to gowaves compiler
-    }
-
-    if (compiler == "WavesCompiler") {
-        // send request to waves compiler
-    }
-
 }
 
-// function executeCode() {
-//     $.sjax({
-//         url: "/execute",
-//     })
-// }
+function compileCode() {
+    let compiler = $("#compilers").val();
+    let code = editor.getSession().getValue();
+
+    $.ajax({
+        type: 'post',
+        url: "http://localhost:8085/app/compile",
+        crossDomain: true,
+        data: JSON.stringify({'compiler': compiler, 'code': code}),
+        success: function(response) {
+            console.log(response);
+            $(".output").text(response)
+        },
+        error: function(response) {
+            console.log(response);
+            $(".output").text(response)
+        }
+    })
+}
