@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -17,6 +16,15 @@ const (
 type Script struct {
 	Code     string `json:"code"`
 	Compiler string `json:"compiler"`
+}
+
+type ScriptResponse struct {
+	Script string `json:"script"`
+}
+
+type ScriptResponseError struct {
+	Error   int    `json:"error"`
+	Message string `json:"message"`
 }
 
 func main() {
@@ -54,13 +62,30 @@ func main() {
 				log.Printf("failed to send an http request: %s\n", err)
 			}
 
-			resBody, err := ioutil.ReadAll(res.Body)
+			if res.StatusCode != http.StatusOK {
+				scriptError := ScriptResponseError{}
+				err := json.NewDecoder(res.Body).Decode(&scriptError)
+				if err != nil {
+					log.Printf("failed to decode response body into scriptError: %s\n", err)
+					http.Error(w, err.Error(), http.StatusBadRequest)
+					return
+				}
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte(scriptError.Message))
+				return
+			}
+
+			scriptResponse := ScriptResponse{}
+			err = json.NewDecoder(res.Body).Decode(&scriptResponse)
 			if err != nil {
-				log.Printf("client: could not read response body: %s\n", err)
+				log.Printf("failed to decode response body into scriptResponse: %s\n", err)
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
 			}
 			w.WriteHeader(http.StatusOK)
-			log.Println(res.StatusCode)
-			w.Write(resBody)
+			scriptResponse.Script = strings.Replace(scriptResponse.Script, "base64:", "", 1)
+			w.Write([]byte(scriptResponse.Script))
+
 		}
 
 	})
