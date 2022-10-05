@@ -30,6 +30,10 @@ type ScriptResponseError struct {
 func main() {
 
 	mux := http.NewServeMux()
+	mux.HandleFunc("/app/ping", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Pong!"))
+	})
 	mux.HandleFunc("/app/compile", func(w http.ResponseWriter, r *http.Request) {
 		var script Script
 		lala := r.URL.Query().Get("code")
