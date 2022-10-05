@@ -1,30 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" theme="light">
+
 <head>
     <meta charset="UTF-8">
     <title>Ride Gowaves IDE</title>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-    <div class="header"> Ride Gowaves IDE </div>
-    <div class="control-panel"></div>
-        Select Compiler:
-        &nbsp;&nbsp;&nbsp;
-        <select id="compilers" class="compilers" onchange="changeCompiler()">
-            <option value="GowavesCompiler"> Gowaves Ride Compiler </option>
-            <option value="WavesCompiler"> Waves Ride Compiler </option>
-        </select>
-    <div class="editor" id="editor"></div>
+    <div class="h-full flx-col">
+        <nav class="navbar flx-aic flx-noshrink">
+            <div class="container w-full">
+                <div class="w-full flx-aic-jcsb">
+                    <div class="flx-aic">
+                        <div class="navbar__title mr-2">Ride Gowaves IDE</div>
 
-    <div class="button-container">
-        <button class="btn" onclick="compileCode()">Run</button>
+                        <button id="toggle-btn" class="btn" onclick="toggleMode()">Light</button>
+                    </div>
+
+                    <div class="flx-aic">
+                        <div class="select-container mr-2">
+                            <select id="compiler" class="select">
+                                <option value="GowavesCompiler">Gowaves Ride Compiler</option>
+                                <option value="WavesCompiler">Waves Ride Compiler</option>
+                            </select>
+                        </div>
+
+                        <button id="run-btn" class="btn btn--primary" onclick="compileCode()">Run</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flx flx-1 overflow-hidden">
+            <div id="editor" class="flx-1"></div>
+            <div class="h-full editor__separator"></div>
+            <div id="output" class="flx-1 editor__output"></div>
+        </div>
     </div>
-
-    <div class="output"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/aceLib/ace.js"></script>
     <script src="js/aceLib/theme-monokai.js"></script>
     <script src="js/ide.js"></script>
 </body>
+
 </html>
