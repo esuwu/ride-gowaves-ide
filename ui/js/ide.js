@@ -24,6 +24,7 @@ function compileCode() {
         },
         error: function(response) {
             console.log(response);
+            console.log("error");
             $(".output").text(response)
         }
     })

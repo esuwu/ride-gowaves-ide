@@ -47,6 +47,7 @@ func main() {
 			w.WriteHeader(http.StatusOK)
 			result := "Gowaves compiler is not supported yet"
 			w.Write([]byte(result))
+			return
 		}
 
 		if script.Compiler == scalaCompiler {
