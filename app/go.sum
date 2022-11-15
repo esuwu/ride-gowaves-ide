@@ -1,2 +1,5 @@
 github.com/go-chi/chi v1.5.4 h1:QHdzF2szwjqVV4wmByUnTcsbIg7UGaQ0tPF2t5GcAIs=
 github.com/go-chi/chi v1.5.4/go.mod h1:uaf8YgoFazUOkPBG7fxPftUylNumIev9awIWOENIuEg=
+github.com/go-chi/chi v4.1.2+incompatible/go.mod h1:eB3wogJHnLi3x/kFX2A+IbTBlXxmMeXJVKy9tTv1XzQ=
+github.com/wavesplatform/gowaves v0.10.3-0.20221115035938-fa5129b9a539 h1:DyuHVsSIg6/QrdcXHg1Eu/5GizTxtJgsAH2mPZWl0vk=
+github.com/wavesplatform/gowaves v0.10.3-0.20221115035938-fa5129b9a539/go.mod h1:lu+1j5IQyxb3T1yf1c3MXGRwzeE5rwpk6j9DhLvCD5g=

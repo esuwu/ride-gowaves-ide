@@ -1,11 +1,16 @@
 package main
 
 import (
+	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/wavesplatform/gowaves/pkg/ride"
+	"github.com/wavesplatform/gowaves/pkg/ride/serialization"
 )
 
 const (
@@ -49,8 +54,31 @@ func main() {
 
 		if script.Compiler == gowavesCompiler {
 			w.WriteHeader(http.StatusOK)
-			result := "Gowaves compiler is not supported yet"
-			w.Write([]byte(result))
+			src, err := base64.StdEncoding.DecodeString(script.Code)
+			if err != nil {
+				w.Write([]byte(err.Error()))
+				return
+			}
+			tree, err := serialization.Parse(src)
+			if err != nil {
+				w.Write([]byte(err.Error()))
+				return
+			}
+
+			rideScript, err := ride.Compile(tree)
+			if err != nil {
+				w.Write([]byte(err.Error()))
+				return
+			}
+			script, ok := rideScript.(*ride.SimpleScript)
+			if !ok {
+				w.Write([]byte("failed to convert rideScript to SimpleScript"))
+				return
+			}
+
+			code := hex.EncodeToString(script.Code)
+
+			w.Write([]byte(code))
 			return
 		}
 
